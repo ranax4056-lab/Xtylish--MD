@@ -1,45 +1,58 @@
-const isAdmin = require('../lib/isAdmin');  // Move isAdmin to helpers
+const isAdmin = require('../lib/isAdmin');  //const isAdmin = require('../lib/isAdmin');
 
 async function tagAllCommand(sock, chatId, senderId, message) {
     try {
-        const { isSenderAdmin, isBotAdmin } = await isAdmin(sock, chatId, senderId);
-        
-
-        if (!isBotAdmin) {
-            await sock.sendMessage(chatId, { text: 'Please make the bot an admin first.' }, { quoted: message });
-            return;
-        }
-
-        if (!isSenderAdmin) {
-            await sock.sendMessage(chatId, { text: 'Only group admins can use the .tagall command.' }, { quoted: message });
-            return;
-        }
-
-        // Get group metadata
+        // Group metadata
         const groupMetadata = await sock.groupMetadata(chatId);
-        const participants = groupMetadata.participants;
+        const members = groupMetadata.participants;
 
-        if (!participants || participants.length === 0) {
-            await sock.sendMessage(chatId, { text: 'No participants found in the group.' });
-            return;
+        // 👉 user message (attention custom)
+        const userText =
+            message?.conversation ||
+            message?.extendedTextMessage?.text ||
+            '💗🇦‌𝐓𝐓𝐄𝐍𝐓𝐈𝐎𝐍 🇪‌𝐕𝐄𝐑𝐘𝐎𝐍𝐄!💗';
+
+        const emojis = [
+            "│🌸 ᩧ𝆺ྀི𝅥","│👑 ᩧ𝆺ྀི𝅥","│🎀 ᩧ𝆺ྀི𝅥",
+            "│🦋 ᩧ𝆺ྀི𝅥","│💎 ᩧ𝆺ྀི𝅥","│🎾 ᩧ𝆺ྀི𝅥",
+            "│🎈 ᩧ𝆺ྀི𝅥","│🧁 ᩧ𝆺ྀི𝅥","│🍿 ᩧ𝆺ྀི𝅥","│🪀 ᩧ𝆺ྀི𝅥"
+        ];
+
+        let count = 1;
+
+        let messageText = `
+🪀 🇬‌𝐑𝐎𝐔𝐏 : ${groupMetadata.subject}
+💎 🇲‌𝐄𝐌𝐁𝐄𝐑𝐒 : ${members.length}
+✨ 🇲‌𝐄𝐒𝐒𝐀𝐆𝐄 : ${userText}
+
+╭┈─「 ɦเ αℓℓ ƒɾเεɳ∂ร 🥰 」┈❍
+`;
+
+        for (let m of members) {
+            let emoji = emojis[(count - 1) % emojis.length];
+            messageText += `${emoji} @${m.id.split('@')[0]}\n`;
+            count++;
         }
 
-        // Create message with each member on a new line
-        let messageText = '🔊 *Hello Everyone:*\n\n';
-        participants.forEach(participant => {
-            messageText += `@${participant.id.split('@')[0]}\n`; // Add \n for new line
-        });
+        messageText += `╰────────────❍
 
-        // Send message with mentions
+💬 Sent with Love by 𓆩Xtylish-Shahin𓆪 🖤
+💗 Stay Active — Stay Stylish! ✨
+`;
+
+        // ❌ কোনো admin check নেই → bot admin না হলেও কাজ করবে
         await sock.sendMessage(chatId, {
             text: messageText,
-            mentions: participants.map(p => p.id)
-        });
+            mentions: members.map(a => a.id)
+        }, { quoted: message });
 
     } catch (error) {
-        console.error('Error in tagall command:', error);
-        await sock.sendMessage(chatId, { text: 'Failed to tag all members.' });
+        console.error("❌ TagAll error:", error);
+        await sock.sendMessage(
+            chatId,
+            { text: "⚠ কিছু সমস্যা হয়েছে ভাই! পরে আবার চেষ্টা করো 😅", quoted: message }
+        );
     }
 }
 
-module.exports = tagAllCommand;  // Export directly
+module.exports = tagAllCommand;
