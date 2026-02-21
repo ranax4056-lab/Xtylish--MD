@@ -1,6 +1,6 @@
 /**
- * Knight Bot - A WhatsApp Bot
- * Copyright (c) 2024 Professor
+ * SHAHIN RANA - A WhatsApp Bot
+ * Copyright (c) 2024 Xtylish Rana
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the MIT License.
@@ -161,7 +161,7 @@ async function startXeonBotInc() {
                             isForwarded: true,
                             forwardedNewsletterMessageInfo: {
                                 newsletterJid: '120363161513685998@newsletter',
-                                newsletterName: 'KnightBot MD',
+                                newsletterName: 'SHAHIN RANA',
                                 serverMessageId: -1
                             }
                         }
@@ -280,12 +280,12 @@ async function startXeonBotInc() {
             }
 
             await delay(1999)
-            console.log(chalk.yellow(`\n\n                  ${chalk.bold.blue(`[ ${global.botname || 'KNIGHT BOT'} ]`)}\n\n`))
+            console.log(chalk.yellow(`\n\n                  ${chalk.bold.blue(`[ ${global.botname || 'SHAHIN RANA'} ]`)}\n\n`))
             console.log(chalk.cyan(`< ================================================== >`))
-            console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: MR UNIQUE HACKER`))
-            console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: mrunqiuehacker`))
+            console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: MR SHAHIN HACKER`))
+            console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: MR SHAHIN HACKER`))
             console.log(chalk.magenta(`${global.themeemoji || '•'} WA NUMBER: ${owner}`))
-            console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: MR UNIQUE HACKER`))
+            console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: MR SHAHIN HACKER`))
             console.log(chalk.green(`${global.themeemoji || '•'} 🤖 Bot Connected Successfully! ✅`))
             console.log(chalk.blue(`Bot Version: ${settings.version}`))
         }
