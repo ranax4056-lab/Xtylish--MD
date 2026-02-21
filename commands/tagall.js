@@ -1,58 +1,57 @@
-const isAdmin = require('../lib/isAdmin');  //const isAdmin = require('../lib/isAdmin');
+/**
+ * TagAll Command (Bot admin না হলেও কাজ করবে)
+ */
 
-async function tagAllCommand(sock, chatId, senderId, message) {
+module.exports = {
+  name: 'tagall',
+  aliases: ['everyone', 'mentionall'],
+  category: 'group',
+  groupOnly: true,
+
+  async execute(sock, msg, args, extra) {
     try {
-        // Group metadata
-        const groupMetadata = await sock.groupMetadata(chatId);
-        const members = groupMetadata.participants;
+      const groupMetadata = await sock.groupMetadata(extra.from);
+      const members = groupMetadata.participants;
 
-        // 👉 user message (attention custom)
-        const userText =
-            message?.conversation ||
-            message?.extendedTextMessage?.text ||
-            '💗🇦‌𝐓𝐓𝐄𝐍𝐓𝐈𝐎𝐍 🇪‌𝐕𝐄𝐑𝐘𝐎𝐍𝐄!💗';
+      const emojis = [
+        "│🌸 ᩧ𝆺ྀི𝅥","│👑 ᩧ𝆺ྀི𝅥","│🎀 ᩧ𝆺ྀི𝅥",
+        "│🦋 ᩧ𝆺ྀི𝅥","│💎 ᩧ𝆺ྀི𝅥","│🎾 ᩧ𝆺ྀི𝅥",
+        "│🎈 ᩧ𝆺ྀི𝅥","│🧁 ᩧ𝆺ྀི𝅥","│🍿 ᩧ𝆺ྀི𝅥","│🪀 ᩧ𝆺ྀི𝅥"
+      ];
 
-        const emojis = [
-            "│🌸 ᩧ𝆺ྀི𝅥","│👑 ᩧ𝆺ྀི𝅥","│🎀 ᩧ𝆺ྀི𝅥",
-            "│🦋 ᩧ𝆺ྀི𝅥","│💎 ᩧ𝆺ྀི𝅥","│🎾 ᩧ𝆺ྀི𝅥",
-            "│🎈 ᩧ𝆺ྀི𝅥","│🧁 ᩧ𝆺ྀི𝅥","│🍿 ᩧ𝆺ྀི𝅥","│🪀 ᩧ𝆺ྀི𝅥"
-        ];
+      const customMsg = args.join(' ') || '💗 ATTENTION EVERYONE 💗';
 
-        let count = 1;
-
-        let messageText = `
+      let text = `
 🪀 🇬‌𝐑𝐎𝐔𝐏 : ${groupMetadata.subject}
-💎 🇲‌𝐄𝐌𝐁𝐄𝐑𝐒 : ${members.length}
-✨ 🇲‌𝐄𝐒𝐒𝐀𝐆𝐄 : ${userText}
+🪀 🇲‌𝐄𝐌𝐁𝐄𝐑𝐒 : ${members.length}
+🪀 🇲‌𝐄𝐒𝐒𝐀𝐆𝐄 : ${customMsg}
 
 ╭┈─「 ɦเ αℓℓ ƒɾเεɳ∂ร 🥰 」┈❍
 `;
 
-        for (let m of members) {
-            let emoji = emojis[(count - 1) % emojis.length];
-            messageText += `${emoji} @${m.id.split('@')[0]}\n`;
-            count++;
-        }
+      let count = 0;
+      for (const m of members) {
+        const emoji = emojis[count % emojis.length];
+        text += `${emoji} @${m.id.split('@')[0]}\n`;
+        count++;
+      }
 
-        messageText += `╰────────────❍
+      text += `╰────────────❍
 
 💬 Sent with Love by 𓆩Xtylish-Shahin𓆪 🖤
 💗 Stay Active — Stay Stylish! ✨
 `;
 
-        // ❌ কোনো admin check নেই → bot admin না হলেও কাজ করবে
-        await sock.sendMessage(chatId, {
-            text: messageText,
-            mentions: members.map(a => a.id)
-        }, { quoted: message });
+      await sock.sendMessage(extra.from, {
+        text,
+        mentions: members.map(m => m.id)
+      }, { quoted: msg });
 
-    } catch (error) {
-        console.error("❌ TagAll error:", error);
-        await sock.sendMessage(
-            chatId,
-            { text: "⚠ কিছু সমস্যা হয়েছে ভাই! পরে আবার চেষ্টা করো 😅", quoted: message }
-        );
+    } catch (err) {
+      console.error('TagAll Error:', err);
+      await sock.sendMessage(extra.from, {
+        text: '⚠ কিছু সমস্যা হয়েছে ভাই 😅'
+      }, { quoted: msg });
     }
-}
-
-module.exports = tagAllCommand;
+  }
+};
