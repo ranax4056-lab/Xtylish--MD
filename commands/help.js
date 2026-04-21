@@ -7,7 +7,7 @@ async function helpCommand(sock, chatId, message) {
 *╭┈──〔 *𓆩ု᪳𝐒𝐇𝐀𝐇𝐈𝐍-𝐗ှ᪳𓆪* 〕┈──⊷
 *┃* 💎${settings.botName || ' 𝐒𝐡𝐚𝐡𝐢𝐧 𝐑𝐚𝐧𝐚'}*  
 *┃* 💎*~_ᴠᴇʀsɪᴏɴ_~*: *${settings.version || '3.0.0'}*
-*┃* 💎 *~_𝐁𝐘_~* ${settings.botOwner || 'Mr Shahin Rana'}
+*┃* 💎 *~_ʙʏ_~* ${settings.botOwner || 'Mr Shahin Rana'}
 *┃* 💎 *~_𝐘𝐓_~* : *~_ 𝐗𝐭𝐲𝐥𝐢𝐬𝐡_ღ꙰𝐒𝐡𝐚𝐡𝐢𝐧࿐_~*
 *╰─➤*💗*⎯⃝‎‎‎*𝐒𝐡𝐚𝐡𝐢𝐧 𝐑𝐚𝐧𝐚♡➪*
 
