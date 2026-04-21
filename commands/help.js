@@ -8,7 +8,7 @@ async function helpCommand(sock, chatId, message) {
 *┃* 💎${settings.botName || ' 𝐒𝐡𝐚𝐡𝐢𝐧 𝐑𝐚𝐧𝐚'}*  
 *┃* 💎*~_ᴠᴇʀsɪᴏɴ_~*: *${settings.version || '3.0.0'}*
 *┃* 💎 *~_ʙʏ_~* ${settings.botOwner || 'Mr Shahin Rana'}
-*┃* 💎 *~_𝐘𝐓_~* : *~_ 𝐗𝐭𝐲𝐥𝐢𝐬𝐡_ღ꙰𝐒𝐡𝐚𝐡𝐢𝐧࿐_~*
+*┃* 💎 *~_ʏᴛ_~* : *~_ 𝐗𝐭𝐲𝐥𝐢𝐬𝐡_ღ꙰𝐒𝐡𝐚𝐡𝐢𝐧࿐_~*
 *╰─➤*💗*⎯⃝‎‎‎*𝐒𝐡𝐚𝐡𝐢𝐧 𝐑𝐚𝐧𝐚♡➪*
 
  ❒ 𝓐𝓿𝓪𝓲𝓵𝓪𝓫𝓵𝓮 𝓬𝓸𝓶𝓶𝓪𝓷𝓭𝓼:*♡︎*
